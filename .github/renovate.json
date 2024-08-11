@@ -1,4 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>daflyinbed/renovate-config"]
+  "extends": ["local>daflyinbed/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["cheerio"],
+      "enabled": false
+    }
+  ]
 }

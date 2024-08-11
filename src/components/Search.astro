@@ -120,7 +120,8 @@ import "@pagefind/default-ui/css/ui.css";
       const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
       onIdle(async () => {
         const { PagefindUI } = await import("@pagefind/default-ui");
-        const _ = new PagefindUI({
+        // eslint-disable-next-line no-new
+        new PagefindUI({
           baseUrl: import.meta.env.BASE_URL,
           bundlePath: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/pagefind/`,
           element: "#cactus__search",

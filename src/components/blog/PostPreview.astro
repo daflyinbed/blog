@@ -6,7 +6,7 @@ import type { CollectionEntry } from "astro:content";
 
 import type { HTMLTag, Polymorphic } from "astro/types";
 
-type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
+type Props<Tag extends HTMLTag = "div"> = Polymorphic<{ as: Tag }> & {
   post: CollectionEntry<"post">;
   withDesc?: boolean;
 };
