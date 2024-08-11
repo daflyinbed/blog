@@ -1,21 +1,44 @@
 {
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit"
-	},
-	"[markdown]": {
-		"editor.wordWrap": "on"
-	},
-	"prettier.documentSelectors": ["**/*.astro"],
-	"eslint.probe": [
-		"astro",
-		"javascript",
-		"javascriptreact",
-		"markdown",
-		"typescript",
-		"typescriptreact"
-	],
-	"[astro]": {
-		"editor.defaultFormatter": "astro-build.astro-vscode"
-	}
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "[markdown]": {
+    "editor.wordWrap": "on"
+  },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "eslint.probe": [
+    "astro",
+    "javascript",
+    "javascriptreact",
+    "markdown",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ],
+  "[astro]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ]
 }
