@@ -5,21 +5,26 @@ import { fileURLToPath } from "node:url";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const { ACCESS_KEY_ID, ACCESS_KEY_SECRET, BUCKET } = process.env;
+const { REGION, ACCESS_KEY_ID, ACCESS_KEY_SECRET, BUCKET } = process.env;
 
 const client = new S3Client({
+  region: REGION!,
   credentials: {
     accessKeyId: ACCESS_KEY_ID!,
     secretAccessKey: ACCESS_KEY_SECRET!,
   },
   bucketEndpoint: false,
-  endpoint: "https://oss-cn-beijing.aliyuncs.com",
+  endpoint: `https://oss-${REGION}.aliyuncs.com`,
 });
 
 async function upload(key: string, filePath: string) {
   const fileStream = fs.createReadStream(filePath);
   const resp = await client.send(
-    new PutObjectCommand({ Bucket: BUCKET, Key: key, Body: fileStream }),
+    new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+      Body: fileStream,
+    }),
   );
   console.log(
     "uploaded",
