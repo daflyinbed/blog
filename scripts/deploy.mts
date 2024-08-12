@@ -5,10 +5,9 @@ import { fileURLToPath } from "node:url";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const { REGION, ACCESS_KEY_ID, ACCESS_KEY_SECRET, BUCKET } = process.env;
+const { ACCESS_KEY_ID, ACCESS_KEY_SECRET, BUCKET } = process.env;
 
 const client = new S3Client({
-  region: REGION!,
   credentials: {
     accessKeyId: ACCESS_KEY_ID!,
     secretAccessKey: ACCESS_KEY_SECRET!,

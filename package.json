@@ -12,7 +12,8 @@
     "format": "prettier -w --cache . && prettier -w --cache **/*.astro",
     "check": "astro check",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "deploy": "tsx scripts/deploy.mts"
   },
   "dependencies": {
     "@astrojs/mdx": "3.1.3",
