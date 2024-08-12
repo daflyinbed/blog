@@ -2,6 +2,7 @@
   "name": "astro-cactus",
   "version": "4.6.0",
   "private": false,
+  "packageManager": "pnpm@9.7.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
