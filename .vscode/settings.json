@@ -6,7 +6,6 @@
   "[markdown]": {
     "editor.wordWrap": "on"
   },
-  "prettier.documentSelectors": ["**/*.astro"],
   "eslint.probe": [
     "astro",
     "javascript",
