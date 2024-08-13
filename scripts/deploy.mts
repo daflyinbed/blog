@@ -3,6 +3,7 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import mime from "mime";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const { REGION, ACCESS_KEY_ID, ACCESS_KEY_SECRET, BUCKET } = process.env;
@@ -19,11 +20,13 @@ const client = new S3Client({
 
 async function upload(key: string, filePath: string) {
   const fileStream = fs.createReadStream(filePath);
+  const contentType = mime.getType(filePath) || "application/octet-stream";
   const resp = await client.send(
     new PutObjectCommand({
       Bucket: BUCKET,
       Key: key,
       Body: fileStream,
+      ContentType: contentType,
     }),
   );
   console.log(
