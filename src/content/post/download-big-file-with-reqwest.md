@@ -1,6 +1,6 @@
 ---
 title: "Download big file with reqwest"
-description: "Download one chunk rewrite one chunk with reqwest."
+description: "Download and write chunks one by one using reqwest."
 publishDate: "2024-03-10"
 tags: ["rust", "notes"]
 ---
