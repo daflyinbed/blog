@@ -6,7 +6,7 @@ import RobotoMonoBold from "@/assets/roboto-mono-700.ttf";
 import RobotoMono from "@/assets/roboto-mono-regular.ttf";
 import { getAllPosts } from "@/data/post";
 import { siteConfig } from "@/site-config";
-import { getFormattedDate } from "@/utils";
+import { getFormattedDate } from "@/utils/date";
 import type { APIContext, InferGetStaticPropsType } from "astro";
 
 const ogOptions: SatoriOptions = {
