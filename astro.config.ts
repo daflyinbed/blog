@@ -5,16 +5,20 @@ import tailwind from "@astrojs/tailwind";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
+import webmanifest from "astro-webmanifest";
 import { defineConfig } from "astro/config";
-// Remark plugins
-import remarkDirective from "remark-directive";
+import {
+  expressiveCodeOptions,
+  siteConfig,
+} from "./src/site.config"; /* Handle ::: directives as nodes */
 
-import { expressiveCodeOptions } from "./src/site.config"; /* Handle ::: directives as nodes */
-import remarkUnwrapImages from "remark-unwrap-images";
-import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add admonitions */
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
 
+// Remark plugins
+import remarkDirective from "remark-directive";
+import remarkUnwrapImages from "remark-unwrap-images";
+import { remarkAdmonitions } from "./src/plugins/remark-admonitions";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 
 // https://astro.build/config
@@ -32,6 +36,47 @@ export default defineConfig({
     sitemap(),
     mdx(),
     robotsTxt(),
+    webmanifest({
+      /**
+       * required
+       */
+      name: siteConfig.title,
+
+      /**
+       * optional
+       */
+      // short_name: "Astro_Cactus",
+      description: siteConfig.description,
+      lang: siteConfig.lang,
+      icon: "public/icon.svg", // source for favicon & icons
+      icons: [
+        {
+          src: "icons/apple-touch-icon.png",
+          sizes: "180x180",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+      start_url: "/",
+      background_color: "#1d1f21",
+      theme_color: "#2bbc8a",
+      display: "standalone",
+
+      config: {
+        insertFaviconLinks: false,
+        insertThemeColorMeta: false,
+        insertManifestLink: false,
+      },
+    }),
   ],
   markdown: {
     rehypePlugins: [
