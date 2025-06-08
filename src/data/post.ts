@@ -1,27 +1,10 @@
-import { getCollection, type CollectionEntry } from "astro:content";
-import { siteConfig } from "@/site-config";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 /** filter out draft posts based on the environment */
-export async function getAllPosts() {
+export async function getAllPosts(): Promise<CollectionEntry<"post">[]> {
   return await getCollection("post", ({ data }) => {
     return import.meta.env.PROD ? !data.draft : true;
-  });
-}
-
-/** returns the date of the post based on option in siteConfig.sortPostsByUpdatedDate */
-export function getPostSortDate(post: CollectionEntry<"post">) {
-  return siteConfig.sortPostsByUpdatedDate &&
-    post.data.updatedDate !== undefined
-    ? new Date(post.data.updatedDate)
-    : new Date(post.data.publishDate);
-}
-
-/** sort post by date (by siteConfig.sortPostsByUpdatedDate), desc.*/
-export function sortMDByDate(posts: CollectionEntry<"post">[]) {
-  return posts.sort((a, b) => {
-    const aDate = getPostSortDate(a).valueOf();
-    const bDate = getPostSortDate(b).valueOf();
-    return bDate - aDate;
   });
 }
 
@@ -31,7 +14,7 @@ export function sortMDByDate(posts: CollectionEntry<"post">[]) {
 export function groupPostsByYear(posts: CollectionEntry<"post">[]) {
   return posts.reduce<Record<string, CollectionEntry<"post">[]>>(
     (acc, post) => {
-      const year = getPostSortDate(post).getFullYear();
+      const year = post.data.publishDate.getFullYear();
       if (!acc[year]) {
         acc[year] = [];
       }

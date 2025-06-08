@@ -1,13 +1,14 @@
 import { Buffer } from "node:buffer";
 import { Resvg } from "@resvg/resvg-js";
-import satori, { type SatoriOptions } from "satori";
+import satori from "satori";
 import { html } from "satori-html";
 import RobotoMonoBold from "@/assets/roboto-mono-700.ttf";
 import RobotoMono from "@/assets/roboto-mono-regular.ttf";
 import { getAllPosts } from "@/data/post";
-import { siteConfig } from "@/site-config";
+import { siteConfig } from "@/site.config";
 import { getFormattedDate } from "@/utils/date";
 import type { APIContext, InferGetStaticPropsType } from "astro";
+import type { SatoriOptions } from "satori";
 
 const ogOptions: SatoriOptions = {
   // debug: true,
@@ -93,7 +94,7 @@ export async function getStaticPaths() {
   return posts
     .filter(({ data }) => !data.ogImage)
     .map((post) => ({
-      params: { slug: post.slug },
+      params: { slug: post.id },
       props: {
         pubDate: post.data.updatedDate ?? post.data.publishDate,
         title: post.data.title,

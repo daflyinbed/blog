@@ -14,10 +14,10 @@ import {
 
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 
 // Remark plugins
 import remarkDirective from "remark-directive";
-import remarkUnwrapImages from "remark-unwrap-images";
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 
@@ -87,13 +87,9 @@ export default defineConfig({
           target: "_blank",
         },
       ],
+      rehypeUnwrapImages,
     ],
-    remarkPlugins: [
-      remarkUnwrapImages,
-      remarkReadingTime,
-      remarkDirective,
-      remarkAdmonitions,
-    ],
+    remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions],
     remarkRehype: {
       footnoteLabelProperties: {
         className: [""],
