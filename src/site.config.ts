@@ -19,7 +19,7 @@ export const siteConfig: SiteConfig = {
   lang: "en-GB",
   // Meta property, found in src/components/BaseHead.astro L:42
   ogLocale: "en_GB",
-  // Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
+  // Used to construct the meta title property
   title: "夕舞八弦",
   // used in astro.config.ts
   url: "https://xwbx.ink/",
