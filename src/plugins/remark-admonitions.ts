@@ -1,9 +1,10 @@
-import { h as _h, type Properties } from "hastscript";
+import { h as _h } from "hastscript";
 import { directiveToMarkdown } from "mdast-util-directive";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { toString as mdastToString } from "mdast-util-to-string";
 import { visit } from "unist-util-visit";
 import type { AdmonitionType } from "@/types";
+import type { Properties } from "hastscript";
 import type {
   Node,
   Paragraph as P,
@@ -65,7 +66,6 @@ function transformUnhandledDirective(
 }
 
 /** From Astro Starlight: Function that generates an mdast HTML tree ready for conversion to HTML by rehype. */
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function h(el: string, attrs: Properties = {}, children: any[] = []): P {
   const { properties, tagName } = _h(el, attrs);
   return {
@@ -104,15 +104,21 @@ export const remarkAdmonitions: Plugin<[], Root> = () => (tree) => {
     }
 
     // Do not change prefix to AD, ADM, or similar, adblocks will block the content inside.
-    const aside = h(
+    const admonition = h(
       "aside",
-      { "aria-label": title, class: `aside aside-${admonitionType}` },
+      {
+        "aria-label": title,
+        class: "admonition",
+        "data-admonition-type": admonitionType,
+      },
       [
-        h("p", { class: "aside-title", "aria-hidden": "true" }, [...titleNode]),
-        h("div", { class: "aside-content" }, node.children),
+        h("p", { class: "admonition-title", "aria-hidden": "true" }, [
+          ...titleNode,
+        ]),
+        h("div", { class: "admonition-content" }, node.children),
       ],
     );
 
-    parent.children[index] = aside;
+    parent.children[index] = admonition;
   });
 };

@@ -1,52 +1,43 @@
 import fs from "node:fs";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwind from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
 import { defineConfig } from "astro/config";
+
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeUnwrapImages from "rehype-unwrap-images";
+// Remark plugins
+import remarkDirective from "remark-directive";
+
+import { remarkAdmonitions } from "./src/plugins/remark-admonitions";
+import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import {
   expressiveCodeOptions,
   siteConfig,
 } from "./src/site.config"; /* Handle ::: directives as nodes */
 
-// Rehype plugins
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeUnwrapImages from "rehype-unwrap-images";
-
-// Remark plugins
-import remarkDirective from "remark-directive";
-import { remarkAdmonitions } from "./src/plugins/remark-admonitions";
-import { remarkReadingTime } from "./src/plugins/remark-reading-time";
-
 // https://astro.build/config
 export default defineConfig({
+  site: siteConfig.url,
   image: {
     domains: [],
   },
   integrations: [
     expressiveCode(expressiveCodeOptions),
     icon(),
-    tailwind({
-      applyBaseStyles: false,
-      nesting: true,
-    }),
     sitemap(),
     mdx(),
     robotsTxt(),
     webmanifest({
-      /**
-       * required
-       */
+      // See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
       name: siteConfig.title,
-
-      /**
-       * optional
-       */
-      // short_name: "Astro_Cactus",
-      description: siteConfig.description,
+      description: "Xwbx's blog",
       lang: siteConfig.lang,
       icon: "public/icon.svg", // source for favicon & icons
       icons: [
@@ -80,6 +71,11 @@ export default defineConfig({
   ],
   markdown: {
     rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        { behavior: "wrap", properties: { className: ["not-prose"] } },
+      ],
       [
         rehypeExternalLinks,
         {
@@ -98,13 +94,11 @@ export default defineConfig({
   },
   // https://docs.astro.build/en/guides/prefetch/
   prefetch: true,
-  // ! Please remember to replace the following site property with your own domain
-  site: "https://astro-cactus.chriswilliams.dev/",
   vite: {
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
-    plugins: [rawFonts([".ttf", ".woff"])],
+    plugins: [tailwind(), rawFonts([".ttf", ".woff"])],
   },
 });
 
