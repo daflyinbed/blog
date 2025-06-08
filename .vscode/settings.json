@@ -38,7 +38,8 @@
     "less",
     "scss",
     "pcss",
-    "postcss"
+    "postcss",
+    "tailwindcss"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "astro.content-intellisense": true,
