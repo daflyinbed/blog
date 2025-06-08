@@ -16,6 +16,8 @@ const client = new S3Client({
   },
   bucketEndpoint: false,
   endpoint: `https://oss-${REGION}.aliyuncs.com`,
+  requestChecksumCalculation: "WHEN_REQUIRED",
+  responseChecksumValidation: "WHEN_REQUIRED",
 });
 
 async function upload(key: string, filePath: string) {
